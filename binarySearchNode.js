@@ -1,11 +1,11 @@
-function BinaryNode(data) {
+function BinarySearchNode(data) {
     this.data = data;
     this.parent = null;
     this.left = null;
     this.right = null;
 }
 
-BinaryNode.prototype.removeAsChild = function () {
+BinarySearchNode.prototype.removeAsChild = function () {
     if (this.parent.left === this) {
         this.parent.left = null;
     }
@@ -15,10 +15,16 @@ BinaryNode.prototype.removeAsChild = function () {
 }
 
 function isLeafEmpty(node) {
-    return node === null || node.data === null;
+   if(isNull(node)) return isNull(node)
+   return node.data == null;
 }
 
-BinaryNode.prototype.remove = function (data) {
+function isNull(obj){
+    return obj == null;
+}
+
+
+BinarySearchNode.prototype.remove = function (data) {
     if (this.data > data) {
         this.left.remove(data);
         return;
@@ -57,14 +63,14 @@ BinaryNode.prototype.remove = function (data) {
     }
 }
 
-BinaryNode.prototype.findMin = function () {
+BinarySearchNode.prototype.findMin = function () {
     if (this.left !== null) {
         return this.left.findMin();
     }
     return this;
 }
 
-BinaryNode.prototype.search = function (data) {
+BinarySearchNode.prototype.search = function (data) {
     if (this.data == data) {
         return this;
     }
@@ -79,14 +85,14 @@ BinaryNode.prototype.search = function (data) {
 }
 
 
-BinaryNode.prototype.add = function (data) {
+BinarySearchNode.prototype.add = function (data) {
     if (this.data === null) {
         this.data = data;
         return;
     }
     if (this.data < data) {
         if (this.right === null) {
-            this.right = new BinaryNode(data);
+            this.right = new BinarySearchNode(data);
             this.right.parent = this;
         } else {
             this.right.add(data);
@@ -94,7 +100,7 @@ BinaryNode.prototype.add = function (data) {
     }
     if (this.data > data) {
         if (this.left === null) {
-            this.left = new BinaryNode(data);
+            this.left = new BinarySearchNode(data);
             this.left.parent = this;
         } else {
             this.left.add(data);
